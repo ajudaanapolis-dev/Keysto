@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Keysto | Documento de Entrega</title>
+  <title>Keysto | Relatorio Tecnico</title>
   <style>
     :root {
-      --paper: #f3efe6;
-      --ink: #111111;
-      --muted: #655a4d;
-      --line: rgba(17, 17, 17, 0.12);
-      --card: rgba(255, 252, 246, 0.84);
-      --olive: #2f4f3e;
-      --sand: #d9c7a8;
-      --gold: #9f6d32;
-      --shadow: 0 24px 60px rgba(17, 17, 17, 0.10);
+      --bg: #f2eee6;
+      --ink: #151311;
+      --muted: #5f584d;
+      --line: rgba(21, 19, 17, 0.12);
+      --panel: rgba(255, 251, 245, 0.84);
+      --deep: #22352b;
+      --accent: #8d5f28;
+      --warn: #9f3f2c;
+      --ok: #2b684f;
+      --shadow: 0 24px 64px rgba(21, 19, 17, 0.10);
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -23,17 +24,23 @@
       color: var(--ink);
       font-family: Baskerville, "Palatino Linotype", "Book Antiqua", Palatino, serif;
       background:
-        linear-gradient(140deg, rgba(47,79,62,0.14), transparent 30%),
-        linear-gradient(320deg, rgba(159,109,50,0.12), transparent 25%),
-        radial-gradient(circle at 20% 15%, rgba(217,199,168,0.45), transparent 18%),
-        var(--paper);
+        radial-gradient(circle at top left, rgba(141,95,40,0.12), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(34,53,43,0.12), transparent 26%),
+        var(--bg);
     }
     a {
       color: inherit;
       text-decoration: none;
     }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.92em;
+      background: rgba(21, 19, 17, 0.06);
+      padding: 2px 6px;
+      border-radius: 8px;
+    }
     .shell {
-      width: min(1120px, calc(100% - 28px));
+      width: min(1180px, calc(100% - 28px));
       margin: 0 auto;
       padding: 18px 0 56px;
     }
@@ -46,7 +53,7 @@
       padding: 12px 14px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(255, 251, 244, 0.72);
+      background: rgba(255, 251, 245, 0.72);
       backdrop-filter: blur(12px);
       box-shadow: var(--shadow);
     }
@@ -64,8 +71,8 @@
       border-radius: 50%;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, var(--olive), #18261e);
-      color: #f9f0df;
+      background: linear-gradient(135deg, var(--deep), #101613);
+      color: #f7efe2;
       font-size: 11px;
       font-weight: bold;
     }
@@ -83,53 +90,53 @@
     }
     .nav a:hover {
       border-color: var(--line);
-      background: rgba(255,255,255,0.45);
+      background: rgba(255,255,255,0.44);
     }
     .hero {
-      position: relative;
-      overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 30px;
       background:
-        linear-gradient(135deg, rgba(47,79,62,0.97), rgba(23,28,26,0.96) 58%, rgba(159,109,50,0.96));
-      color: #f8f4ec;
+        linear-gradient(135deg, rgba(34,53,43,0.98), rgba(15,19,18,0.96) 56%, rgba(141,95,40,0.94));
+      color: #f8f3e9;
       box-shadow: var(--shadow);
       padding: 28px 22px 26px;
       margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
     }
     .hero::after {
       content: "";
       position: absolute;
-      inset: auto -60px -60px auto;
-      width: 220px;
-      height: 220px;
+      inset: auto -70px -70px auto;
+      width: 260px;
+      height: 260px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(255,255,255,0.18), transparent 60%);
     }
     .kicker {
       display: inline-flex;
-      gap: 8px;
       align-items: center;
+      gap: 8px;
       padding: 8px 12px;
       border-radius: 999px;
       background: rgba(255,255,255,0.10);
       border: 1px solid rgba(255,255,255,0.14);
       font-size: 12px;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
     h1 {
       margin: 14px 0 14px;
-      max-width: 10ch;
-      font-size: clamp(48px, 8vw, 92px);
+      max-width: 11ch;
+      font-size: clamp(44px, 8vw, 84px);
       line-height: 0.92;
       letter-spacing: -0.05em;
     }
     .lede {
-      max-width: 58ch;
+      max-width: 62ch;
       font-size: 18px;
-      line-height: 1.6;
-      color: rgba(248,244,236,0.88);
+      line-height: 1.65;
+      color: rgba(248,243,233,0.88);
     }
     .cta-row {
       display: flex;
@@ -146,35 +153,35 @@
       border-radius: 999px;
       font-size: 14px;
       border: 1px solid transparent;
-      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+      transition: transform .15s ease;
     }
     .btn:hover { transform: translateY(-1px); }
     .btn.primary {
-      background: #f6e8d0;
-      color: #1f271f;
+      background: #f5e6cf;
+      color: #1e261f;
     }
     .btn.secondary {
+      color: #f8f3e9;
       border-color: rgba(255,255,255,0.18);
-      color: #f8f4ec;
       background: rgba(255,255,255,0.06);
     }
     .stats {
       display: grid;
       gap: 12px;
-      margin-top: 24px;
+      margin-top: 22px;
     }
-    @media (min-width: 820px) {
+    @media (min-width: 860px) {
       .stats { grid-template-columns: repeat(4, 1fr); }
     }
     .stat {
       padding: 14px;
-      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.06);
     }
     .stat strong {
       display: block;
-      font-size: 28px;
+      font-size: 30px;
       line-height: 1;
       margin-bottom: 6px;
     }
@@ -184,12 +191,12 @@
       margin-top: 18px;
     }
     @media (min-width: 980px) {
-      .section.double { grid-template-columns: 1.1fr 0.9fr; }
+      .section.double { grid-template-columns: 1.08fr 0.92fr; }
     }
     .card {
       border: 1px solid var(--line);
       border-radius: 24px;
-      background: var(--card);
+      background: var(--panel);
       box-shadow: var(--shadow);
       padding: 22px 18px;
       backdrop-filter: blur(10px);
@@ -197,36 +204,67 @@
     .eyebrow {
       display: block;
       margin-bottom: 10px;
-      color: var(--gold);
+      color: var(--accent);
       text-transform: uppercase;
       letter-spacing: 0.12em;
       font-size: 12px;
     }
     h2 {
-      margin: 0 0 10px;
-      font-size: clamp(28px, 4vw, 42px);
+      margin: 0 0 12px;
+      font-size: clamp(28px, 4vw, 40px);
       line-height: 0.96;
       letter-spacing: -0.04em;
+    }
+    h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
     }
     p {
       margin: 0 0 12px;
       color: var(--muted);
-      line-height: 1.7;
+      line-height: 1.72;
       font-size: 16px;
     }
     ul {
       margin: 0;
       padding-left: 18px;
       color: var(--muted);
-      line-height: 1.8;
+      line-height: 1.82;
     }
+    .list-tight li + li { margin-top: 8px; }
+    .matrix {
+      display: grid;
+      gap: 12px;
+    }
+    @media (min-width: 760px) {
+      .matrix.two { grid-template-columns: repeat(2, 1fr); }
+    }
+    .item {
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.54);
+    }
+    .flag {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .flag.high { background: rgba(159,63,44,0.12); color: var(--warn); }
+    .flag.medium { background: rgba(141,95,40,0.12); color: var(--accent); }
+    .flag.ok { background: rgba(43,104,79,0.12); color: var(--ok); }
     .timeline {
       display: grid;
       gap: 12px;
     }
     .step {
       padding: 14px 14px 14px 16px;
-      border-left: 3px solid var(--gold);
+      border-left: 3px solid var(--accent);
       background: rgba(255,255,255,0.48);
       border-radius: 0 16px 16px 0;
     }
@@ -235,47 +273,11 @@
       margin-bottom: 4px;
       color: var(--ink);
     }
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px;
-    }
-    .chip {
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.56);
-      font-size: 13px;
-      color: var(--ink);
-    }
-    .grid-mini {
-      display: grid;
-      gap: 12px;
-    }
-    @media (min-width: 700px) {
-      .grid-mini { grid-template-columns: repeat(2, 1fr); }
-    }
-    .mini {
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(255,255,255,0.56);
-    }
-    .mini h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
-      letter-spacing: -0.02em;
-    }
-    .link-panel {
-      display: grid;
-      gap: 12px;
-    }
     .link-box {
       padding: 16px;
       border-radius: 18px;
-      background: linear-gradient(135deg, rgba(217,199,168,0.30), rgba(255,255,255,0.70));
       border: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(141,95,40,0.10), rgba(255,255,255,0.70));
       overflow-wrap: anywhere;
     }
     .link-box small {
@@ -300,159 +302,236 @@
     <div class="topbar">
       <div class="brand">
         <div class="seal">K</div>
-        <span>Keysto Delivery Notes</span>
+        <span>Keysto Technical Audit</span>
       </div>
       <nav class="nav">
-        <a href="#resumo">Resumo</a>
-        <a href="#ajustes">Ajustes</a>
-        <a href="#links">Links</a>
+        <a href="#escopo">Escopo</a>
+        <a href="#bugs">Bugs</a>
+        <a href="#correcoes">Correcoes</a>
+        <a href="#commits">Commits</a>
         <a href="./app.html">Abrir App</a>
       </nav>
     </div>
 
     <section class="hero">
-      <div class="kicker">Documento de entrega publica</div>
-      <h1>Keysto foi ajustado e documentado.</h1>
-      <p class="lede">Esta pagina resume o que foi lido, auditado, corrigido, empacotado e publicado hoje no projeto Keystone BTC Proof. O objetivo foi sair de uma biblioteca solta e entregar algo executavel, auditado, acessivel via navegador e publicavel por link.</p>
+      <div class="kicker">Relatorio tecnico de auditoria e intervencao</div>
+      <h1>Buracos encontrados, codigo reescrito e projeto publicado.</h1>
+      <p class="lede">Este documento registra o trabalho feito no projeto <code>keystone-btc-proof</code>: leitura integral da base, entendimento da arquitetura, identificacao de falhas logicas, correcao dos bugs materiais, construcao de uma superficie executavel e publicacao de uma interface acessivel por link.</p>
       <div class="cta-row">
         <a class="btn primary" href="./app.html">Abrir validador</a>
         <a class="btn secondary" href="https://github.com/ajudaanapolis-dev/Keysto">Ver repositorio</a>
       </div>
       <div class="stats">
         <div class="stat">
-          <strong>1</strong>
-          <span>verificador Rust consolidado</span>
-        </div>
-        <div class="stat">
-          <strong>3</strong>
-          <span>superficies de uso: CLI, web e GitHub Pages</span>
-        </div>
-        <div class="stat">
           <strong>23</strong>
-          <span>testes locais aprovados na rodada final</span>
+          <span>testes aprovados na rodada final</span>
         </div>
         <div class="stat">
-          <strong>100%</strong>
-          <span>pagina principal transformada em documento</span>
+          <strong>1</strong>
+          <span>crate transformada em ferramenta usavel</span>
+        </div>
+        <div class="stat">
+          <strong>8+</strong>
+          <span>falhas e buracos materiais corrigidos</span>
+        </div>
+        <div class="stat">
+          <strong>2</strong>
+          <span>superficies publicas: documento e app</span>
         </div>
       </div>
     </section>
 
-    <section id="resumo" class="section double">
+    <section id="escopo" class="section double">
       <article class="card">
-        <span class="eyebrow">Visao geral</span>
-        <h2>O que foi entregue</h2>
-        <p>O projeto deixou de ser apenas uma crate Rust fechada e passou a ter uma forma clara de uso. Foi finalizada a camada de verificacao, criada uma interface web, preparado um frontend estatico para GitHub Pages e organizada uma publicacao publica por link.</p>
-        <p>Tambem foi feita uma revisao de logica para fechar buracos de rede, janela temporal, altura maxima de inclusao e confianca do tip. Onde havia risco material, o codigo foi corrigido e coberto por teste.</p>
-        <div class="chips">
-          <span class="chip">Rust verifier</span>
-          <span class="chip">CLI util</span>
-          <span class="chip">Web UI</span>
-          <span class="chip">Pages frontend</span>
-          <span class="chip">CORS aberto</span>
-          <span class="chip">Service scripts</span>
-        </div>
+        <span class="eyebrow">Escopo</span>
+        <h2>O que foi auditado</h2>
+        <p>Foi feita leitura integral do codigo Rust que implementa verificacao de <code>ClaimBundle</code>, derivacao de ordem, validacao de transacao Bitcoin, inclusion proof, cadeia de headers, PoW, Taproot e emissao de <code>Settlement</code>.</p>
+        <p>O foco nao foi so estilo ou organizacao. A auditoria foi orientada a comportamento: o objetivo foi encontrar falhas que permitissem aceitar bundles invalidos, rejeitar bundles validos, quebrar semantica temporal da ordem ou inviabilizar o uso real do projeto.</p>
       </article>
       <aside class="card">
-        <span class="eyebrow">Estado atual</span>
-        <h2>Como o projeto ficou</h2>
-        <ul>
-          <li>Biblioteca de verificacao com fluxo de avaliacao fechado.</li>
-          <li>Binario com comandos `template`, `verify` e `serve`.</li>
-          <li>Interface navegavel separada em `app.html`.</li>
-          <li>Pagina principal transformada em documento de entrega.</li>
-          <li>Publicacao automatica no GitHub Pages via GitHub Actions.</li>
-          <li>Repositorio remoto publicado em `main`.</li>
+        <span class="eyebrow">Arquitetura entendida</span>
+        <h2>Como o projeto deveria funcionar</h2>
+        <ul class="list-tight">
+          <li>Receber uma ordem, uma transacao Bitcoin, uma Merkle proof, uma suffix chain de headers e checkpoints aceitos.</li>
+          <li>Recomputar e validar a identidade da ordem e o <code>scriptPubKey</code> esperado.</li>
+          <li>Verificar inclusion, profundidade, tip e consistencia temporal antes de aceitar o settlement.</li>
+          <li>Expor isso como biblioteca de referencia e como ferramenta executavel por integradores.</li>
         </ul>
       </aside>
     </section>
 
-    <section id="ajustes" class="section">
+    <section id="bugs" class="section">
       <article class="card">
-        <span class="eyebrow">Linha do tempo</span>
-        <h2>Ajustes realizados hoje</h2>
-        <div class="timeline">
-          <div class="step">
-            <strong>Auditoria do codigo</strong>
-            <span>Foi feita leitura completa da base Rust para entender o fluxo de `ClaimBundle`, headers, Merkle proof, Taproot, ordem e settlement.</span>
+        <span class="eyebrow">Falhas encontradas</span>
+        <h2>Bugs, buracos e riscos materiais identificados</h2>
+        <div class="matrix two">
+          <div class="item">
+            <span class="flag high">Alta gravidade</span>
+            <h3>Ausencia de validacao de <code>max_btc_inclusion_height</code></h3>
+            <p>A ordem carregava esse campo, mas a adjudicacao nao o aplicava. Na pratica, um bundle podia ser aceito depois da altura maxima esperada.</p>
           </div>
-          <div class="step">
-            <strong>Correcao da adjudicacao</strong>
-            <span>Foram fechados problemas em rede Bitcoin esperada, altura maxima de inclusao, validacao do tip aceito e checagens de contexto L2.</span>
+          <div class="item">
+            <span class="flag high">Alta gravidade</span>
+            <h3><code>btc_network</code> nao amarrava a prova a rede correta</h3>
+            <p>O verificador podia aceitar uma prova coerente em outra rede compativel, desde que o claimant montasse um bundle consistente com checkpoint alternativo.</p>
           </div>
-          <div class="step">
-            <strong>Empacotamento executavel</strong>
-            <span>Foi criado um binario consumivel, com JSON de exemplo, verificacao por arquivo ou stdin e modo servidor HTTP para uso em navegador.</span>
+          <div class="item">
+            <span class="flag high">Alta gravidade</span>
+            <h3>Tip nao confiavel</h3>
+            <p>O fluxo confiava demais no tip declarado pelo claimant. Faltava exigir que o tip final estivesse no conjunto de checkpoints aceitos.</p>
           </div>
-          <div class="step">
-            <strong>Publicacao web</strong>
-            <span>Foi preparada uma camada estatica para GitHub Pages e separado o frontend em duas experiencias: documento de entrega e aplicacao interativa.</span>
+          <div class="item">
+            <span class="flag high">Alta gravidade</span>
+            <h3>Janela temporal L2 nao executada</h3>
+            <p>Campos como expiracao de quote, deadline de claim e reclaim existiam na ordem, mas nao entravam na validacao do oraculo.</p>
           </div>
-          <div class="step">
-            <strong>Exposicao publica</strong>
-            <span>O repositorio foi publicado no GitHub, o workflow de Pages foi habilitado e o link publico foi validado.</span>
+          <div class="item">
+            <span class="flag medium">Media gravidade</span>
+            <h3>Cap de <code>destination_amount</code> sem aplicacao</h3>
+            <p>O preimage carregava um teto, mas a avaliacao nao rejeitava claims acima desse limite.</p>
+          </div>
+          <div class="item">
+            <span class="flag medium">Media gravidade</span>
+            <h3>Aritmetica insegura de alturas</h3>
+            <p>Havia risco de overflow silencioso e derivacao insegura de altura em partes do fluxo de linkage.</p>
+          </div>
+          <div class="item">
+            <span class="flag medium">Media gravidade</span>
+            <h3>Modelo de adjudicacao e razoes de challenge desalinhados</h3>
+            <p>A ordem documentada de verificacao e o catalogo de erros nao refletiam exatamente o comportamento real do codigo.</p>
+          </div>
+          <div class="item">
+            <span class="flag medium">Media gravidade</span>
+            <h3>Superficie de uso insuficiente</h3>
+            <p>O projeto nao tinha binario, CLI, runner ou interface utilizavel. Era dificil ate demonstrar a verificacao ponta a ponta.</p>
           </div>
         </div>
       </article>
+    </section>
+
+    <section id="correcoes" class="section double">
+      <article class="card">
+        <span class="eyebrow">Correcoes aplicadas</span>
+        <h2>O que foi reescrito e corrigido</h2>
+        <div class="timeline">
+          <div class="step">
+            <strong>Adjudicacao reforcada</strong>
+            <span>A avaliacao passou a rejeitar bundles fora da rede esperada, acima da altura maxima de inclusao e com tip nao confiavel.</span>
+          </div>
+          <div class="step">
+            <strong>Contexto L2 introduzido no fluxo</strong>
+            <span>Foi criada validacao explicita para expiracao, reclaim e timeline invalida, em vez de carregar esses campos sem efeito.</span>
+          </div>
+          <div class="step">
+            <strong>Cap de valor aplicado</strong>
+            <span>O verificador passou a rejeitar <code>destination_amount</code> acima do teto previsto pela ordem.</span>
+          </div>
+          <div class="step">
+            <strong>Aritmetica de linkage endurecida</strong>
+            <span>Foram removidos caminhos inseguros de calculo de altura e derivacao de chain suffix.</span>
+          </div>
+          <div class="step">
+            <strong>Razoes de erro alinhadas</strong>
+            <span>O catalogo de challenge reasons passou a refletir melhor a ordem real de avaliacao e as falhas publicamente reportaveis.</span>
+          </div>
+          <div class="step">
+            <strong>Projeto tornado executavel</strong>
+            <span>Foi criado binario com comandos <code>template</code>, <code>verify</code> e <code>serve</code>, alem de UI web e payload de exemplo.</span>
+          </div>
+        </div>
+      </article>
+      <aside class="card">
+        <span class="eyebrow">Resultado tecnico</span>
+        <h2>Como a base ficou depois da intervencao</h2>
+        <ul class="list-tight">
+          <li>Validacao central organizada em um fluxo mais fechado de <code>evaluate_claim_bundle</code>.</li>
+          <li>Regressao coberta por testes para rede errada, tip nao aceito, expiracao, reclaim, cap excedido e timeline invalida.</li>
+          <li>Projeto executavel sem depender de adivinhacao externa sobre ponto de entrada.</li>
+          <li>Frontend separado em duas experiencias: documento e aplicacao.</li>
+        </ul>
+      </aside>
     </section>
 
     <section class="section">
       <article class="card">
-        <span class="eyebrow">Entregaveis tecnicos</span>
-        <h2>Arquivos e superficies principais</h2>
-        <div class="grid-mini">
-          <div class="mini">
-            <h3>Backend Rust</h3>
-            <p>`src/main.rs` expande a crate com CLI e servidor HTTP, enquanto `src/evaluate.rs` concentra a avaliacao do bundle.</p>
+        <span class="eyebrow">Reescritas estruturais</span>
+        <h2>Partes que deixaram de ser so codigo de laboratorio</h2>
+        <div class="matrix two">
+          <div class="item">
+            <span class="flag ok">Concluido</span>
+            <h3>CLI e modo servidor</h3>
+            <p>O projeto ganhou ponto de entrada real em <code>src/main.rs</code>, com uso por arquivo, stdin e navegador.</p>
           </div>
-          <div class="mini">
-            <h3>Frontend estatico</h3>
-            <p>`docs/index.html` virou o documento publico. `docs/app.html` guarda a ferramenta interativa para testes no navegador.</p>
+          <div class="item">
+            <span class="flag ok">Concluido</span>
+            <h3>Payload de exemplo consistente</h3>
+            <p>Foi criado um <code>template</code> que gera request valido e autoconsistente para exercitar o fluxo inteiro.</p>
           </div>
-          <div class="mini">
-            <h3>Deploy</h3>
-            <p>O workflow `pages.yml` publica automaticamente o conteudo de `docs/` no GitHub Pages.</p>
+          <div class="item">
+            <span class="flag ok">Concluido</span>
+            <h3>Publicacao web</h3>
+            <p>Foi preparado frontend estatico em <code>docs/</code> e workflow de deploy automatico para GitHub Pages.</p>
           </div>
-          <div class="mini">
-            <h3>Operacao</h3>
-            <p>Scripts em `service/` continuam disponiveis para rodar a interface web na VPS e manter tunel/servico.</p>
+          <div class="item">
+            <span class="flag ok">Concluido</span>
+            <h3>Operacao minimamente organizada</h3>
+            <p>Scripts em <code>service/</code> foram preparados para subir a interface web e ajudar na exposicao publica.</p>
           </div>
         </div>
       </article>
     </section>
 
-    <section class="section double" id="links">
+    <section class="section double">
       <article class="card">
-        <span class="eyebrow">Links</span>
-        <h2>Onde acessar agora</h2>
-        <div class="link-panel">
-          <div class="link-box">
-            <small>Documento principal</small>
-            <a href="https://ajudaanapolis-dev.github.io/Keysto/">https://ajudaanapolis-dev.github.io/Keysto/</a>
-          </div>
-          <div class="link-box">
-            <small>Aplicacao interativa</small>
-            <a href="https://ajudaanapolis-dev.github.io/Keysto/app.html">https://ajudaanapolis-dev.github.io/Keysto/app.html</a>
-          </div>
-          <div class="link-box">
-            <small>Repositorio</small>
-            <a href="https://github.com/ajudaanapolis-dev/Keysto">https://github.com/ajudaanapolis-dev/Keysto</a>
-          </div>
-        </div>
+        <span class="eyebrow">Limites remanescentes</span>
+        <h2>O que ainda nao deve ser vendido como consenso de producao</h2>
+        <ul class="list-tight">
+          <li>O modelo de headers continua alpha e depende de checkpoints confiaveis.</li>
+          <li>A serializacao canonica de <code>OrderPreimage</code> ainda precisa ser confirmada contra a especificacao externa final.</li>
+          <li>O sistema hoje se comporta bem como verificador de referencia e ferramenta de laboratorio, nao como substituto de um validador de consenso completo.</li>
+        </ul>
       </article>
       <aside class="card">
-        <span class="eyebrow">Observacoes</span>
-        <h2>Limites ainda conhecidos</h2>
-        <ul>
-          <li>O modelo de headers continua alpha e depende de checkpoints confiaveis.</li>
-          <li>A serializacao canonica de `OrderPreimage` ainda precisa ser confrontada com a especificacao externa final.</li>
-          <li>O frontend no GitHub Pages depende da API da VPS ou de um endpoint publico compativel.</li>
+        <span class="eyebrow">Validacao executada</span>
+        <h2>O que foi realmente testado</h2>
+        <ul class="list-tight">
+          <li>Build local em modo release.</li>
+          <li>Rodada final de <code>23</code> testes aprovados.</li>
+          <li>Verificacao da CLI com payload de exemplo.</li>
+          <li>Publicacao da interface no GitHub Pages e validacao dos links publicos.</li>
         </ul>
       </aside>
     </section>
 
+    <section id="commits" class="section double">
+      <article class="card">
+        <span class="eyebrow">Commits</span>
+        <h2>Materializacao do trabalho no repositorio</h2>
+        <div class="link-box">
+          <small>Commit de publicacao consolidada</small>
+          <a href="https://github.com/ajudaanapolis-dev/Keysto/commit/7dbf3fbb0d4448df6ea98238310a77af5cae3d48">7dbf3fb - Publish keystone verifier and static frontend</a>
+        </div>
+        <div class="link-box" style="margin-top:12px;">
+          <small>Commit do relatorio tecnico</small>
+          <a href="https://github.com/ajudaanapolis-dev/Keysto/commit/2acb26bcebde267a104879e5fe8d3267fa8597f5">2acb26b - Turn Pages homepage into delivery report</a>
+        </div>
+      </article>
+      <aside class="card">
+        <span class="eyebrow">Links publicos</span>
+        <h2>Acesso atual</h2>
+        <div class="link-box">
+          <small>Relatorio tecnico</small>
+          <a href="https://ajudaanapolis-dev.github.io/Keysto/">https://ajudaanapolis-dev.github.io/Keysto/</a>
+        </div>
+        <div class="link-box" style="margin-top:12px;">
+          <small>Aplicacao interativa</small>
+          <a href="https://ajudaanapolis-dev.github.io/Keysto/app.html">https://ajudaanapolis-dev.github.io/Keysto/app.html</a>
+        </div>
+      </aside>
+    </section>
+
     <footer>
-      Documento gerado para registrar o trabalho do dia no projeto Keysto e substituir a pagina inicial por uma entrega publica mais clara.
+      Relatorio tecnico preparado para registrar os bugs encontrados, as correcoes aplicadas, as reescritas estruturais e o estado final publico do projeto.
     </footer>
   </main>
 </body>
