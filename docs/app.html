@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Keystone BTC Proof Web</title>
+  <style>
+    :root {
+      --bg: #f6f0e8;
+      --ink: #181513;
+      --panel: rgba(255, 251, 245, 0.94);
+      --line: #d8c9b6;
+      --accent: #0f766e;
+      --danger: #b45309;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(circle at top right, rgba(180,83,9,.13), transparent 26%),
+        radial-gradient(circle at left center, rgba(15,118,110,.12), transparent 22%),
+        var(--bg);
+    }
+    .shell {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 20px 14px 42px;
+    }
+    .hero, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 14px 38px rgba(24,21,19,.08);
+    }
+    .hero { padding: 22px; margin-bottom: 16px; }
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1;
+    }
+    .hero p { margin: 0; max-width: 68ch; }
+    .hero a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+    }
+    .badge {
+      display: inline-block;
+      margin: 0 8px 10px 0;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #efe4d3;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+    @media (min-width: 960px) {
+      .grid { grid-template-columns: 1.15fr .85fr; }
+    }
+    .panel { padding: 16px; }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+      align-items: center;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+    input, textarea, pre {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      color: #181513;
+      padding: 12px 14px;
+      font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    input { font: 14px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    textarea, pre {
+      min-height: 320px;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 0;
+    }
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      cursor: pointer;
+      font: inherit;
+      transition: transform .15s ease, opacity .15s ease;
+    }
+    button:hover { transform: translateY(-1px); }
+    button:disabled { opacity: .6; transform: none; cursor: wait; }
+    .primary { background: var(--accent); color: #fff; }
+    .secondary { background: #efe4d3; color: var(--ink); }
+    .danger { background: var(--danger); color: #fff; }
+    .status {
+      min-height: 22px;
+      font-size: 14px;
+    }
+    .ok { color: var(--accent); }
+    .err { color: var(--danger); }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <span class="badge">Aplicacao</span>
+      <span class="badge">Keystone BTC Proof</span>
+      <span class="badge">Verifier UI</span>
+      <h1>Validador via Navegador</h1>
+      <p>Esta e a ferramenta interativa. Se quiser ver o documento de entrega com o resumo completo do trabalho, abra <a href="./index.html">a pagina principal</a>.</p>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <label for="apiBase">API Base URL</label>
+        <div class="row">
+          <input id="apiBase" type="text" value="https://hood-frequently-vincent-kim.trycloudflare.com">
+          <button id="saveApi" class="secondary">Salvar Endpoint</button>
+        </div>
+        <div class="row">
+          <button id="loadSample" class="secondary">Carregar Exemplo</button>
+          <button id="verify" class="primary">Verificar Bundle</button>
+          <button id="clear" class="danger">Limpar Resultado</button>
+        </div>
+        <textarea id="payload" spellcheck="false" placeholder="Cole ou edite o JSON aqui"></textarea>
+      </article>
+
+      <aside class="panel">
+        <div class="row">
+          <span class="badge">Resultado</span>
+          <span id="status" class="status"></span>
+        </div>
+        <pre id="result">Carregue um exemplo para comecar.</pre>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const apiBaseEl = document.getElementById('apiBase');
+    const payloadEl = document.getElementById('payload');
+    const resultEl = document.getElementById('result');
+    const statusEl = document.getElementById('status');
+    const verifyBtn = document.getElementById('verify');
+    const storageKey = 'keystone-api-base';
+
+    const savedBase = localStorage.getItem(storageKey);
+    if (savedBase) apiBaseEl.value = savedBase;
+
+    function api(path) {
+      return apiBaseEl.value.replace(/\/+$/, '') + path;
+    }
+
+    function setStatus(message, isError) {
+      statusEl.textContent = message;
+      statusEl.className = 'status ' + (isError ? 'err' : 'ok');
+    }
+
+    async function loadSample() {
+      setStatus('Carregando exemplo...', false);
+      const res = await fetch(api('/api/sample'));
+      const text = await res.text();
+      payloadEl.value = text;
+      resultEl.textContent = 'Exemplo carregado.';
+      setStatus('Exemplo pronto.', false);
+    }
+
+    async function verify() {
+      verifyBtn.disabled = true;
+      setStatus('Executando verificacao...', false);
+      try {
+        const res = await fetch(api('/api/verify'), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payloadEl.value
+        });
+        const text = await res.text();
+        resultEl.textContent = text;
+        if (res.ok) {
+          setStatus('Bundle validado com sucesso.', false);
+        } else {
+          setStatus('Bundle rejeitado ou request invalido.', true);
+        }
+      } catch (err) {
+        resultEl.textContent = String(err);
+        setStatus('Falha de conexao com a API.', true);
+      } finally {
+        verifyBtn.disabled = false;
+      }
+    }
+
+    document.getElementById('saveApi').addEventListener('click', () => {
+      localStorage.setItem(storageKey, apiBaseEl.value.trim());
+      setStatus('Endpoint salvo no navegador.', false);
+    });
+
+    document.getElementById('loadSample').addEventListener('click', () => {
+      loadSample().catch(err => {
+        resultEl.textContent = String(err);
+        setStatus('Nao foi possivel carregar o exemplo.', true);
+      });
+    });
+
+    document.getElementById('verify').addEventListener('click', verify);
+    document.getElementById('clear').addEventListener('click', () => {
+      resultEl.textContent = 'Resultado limpo.';
+      setStatus('', false);
+    });
+
+    loadSample().catch(err => {
+      resultEl.textContent = String(err);
+      setStatus('Nao foi possivel carregar o exemplo inicial.', true);
+    });
+  </script>
+</body>
+</html>

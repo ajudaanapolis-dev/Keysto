@@ -3,223 +3,457 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Keystone BTC Proof Web</title>
+  <title>Keysto | Documento de Entrega</title>
   <style>
     :root {
-      --bg: #f6f0e8;
-      --ink: #181513;
-      --panel: rgba(255, 251, 245, 0.94);
-      --line: #d8c9b6;
-      --accent: #0f766e;
-      --danger: #b45309;
+      --paper: #f3efe6;
+      --ink: #111111;
+      --muted: #655a4d;
+      --line: rgba(17, 17, 17, 0.12);
+      --card: rgba(255, 252, 246, 0.84);
+      --olive: #2f4f3e;
+      --sand: #d9c7a8;
+      --gold: #9f6d32;
+      --shadow: 0 24px 60px rgba(17, 17, 17, 0.10);
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       color: var(--ink);
-      font-family: Georgia, "Times New Roman", serif;
+      font-family: Baskerville, "Palatino Linotype", "Book Antiqua", Palatino, serif;
       background:
-        radial-gradient(circle at top right, rgba(180,83,9,.13), transparent 26%),
-        radial-gradient(circle at left center, rgba(15,118,110,.12), transparent 22%),
-        var(--bg);
+        linear-gradient(140deg, rgba(47,79,62,0.14), transparent 30%),
+        linear-gradient(320deg, rgba(159,109,50,0.12), transparent 25%),
+        radial-gradient(circle at 20% 15%, rgba(217,199,168,0.45), transparent 18%),
+        var(--paper);
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
     }
     .shell {
-      max-width: 1080px;
+      width: min(1120px, calc(100% - 28px));
       margin: 0 auto;
-      padding: 20px 14px 42px;
+      padding: 18px 0 56px;
     }
-    .hero, .panel {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: 0 14px 38px rgba(24,21,19,.08);
-    }
-    .hero { padding: 22px; margin-bottom: 16px; }
-    .hero h1 {
-      margin: 0 0 8px;
-      font-size: clamp(30px, 4vw, 46px);
-      line-height: 1;
-    }
-    .hero p { margin: 0; max-width: 68ch; }
-    .badge {
-      display: inline-block;
-      margin: 0 8px 10px 0;
-      padding: 6px 10px;
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding: 12px 14px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: #efe4d3;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .04em;
+      background: rgba(255, 251, 244, 0.72);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
     }
-    .grid {
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .seal {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--olive), #18261e);
+      color: #f9f0df;
+      font-size: 11px;
+      font-weight: bold;
+    }
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+      font-size: 13px;
+    }
+    .nav a {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .nav a:hover {
+      border-color: var(--line);
+      background: rgba(255,255,255,0.45);
+    }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background:
+        linear-gradient(135deg, rgba(47,79,62,0.97), rgba(23,28,26,0.96) 58%, rgba(159,109,50,0.96));
+      color: #f8f4ec;
+      box-shadow: var(--shadow);
+      padding: 28px 22px 26px;
+      margin-bottom: 18px;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -60px -60px auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.18), transparent 60%);
+    }
+    .kicker {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.14);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 14px 0 14px;
+      max-width: 10ch;
+      font-size: clamp(48px, 8vw, 92px);
+      line-height: 0.92;
+      letter-spacing: -0.05em;
+    }
+    .lede {
+      max-width: 58ch;
+      font-size: 18px;
+      line-height: 1.6;
+      color: rgba(248,244,236,0.88);
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      border: 1px solid transparent;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary {
+      background: #f6e8d0;
+      color: #1f271f;
+    }
+    .btn.secondary {
+      border-color: rgba(255,255,255,0.18);
+      color: #f8f4ec;
+      background: rgba(255,255,255,0.06);
+    }
+    .stats {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    @media (min-width: 820px) {
+      .stats { grid-template-columns: repeat(4, 1fr); }
+    }
+    .stat {
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+    }
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .section {
       display: grid;
       gap: 16px;
+      margin-top: 18px;
     }
-    @media (min-width: 960px) {
-      .grid { grid-template-columns: 1.15fr .85fr; }
+    @media (min-width: 980px) {
+      .section.double { grid-template-columns: 1.1fr 0.9fr; }
     }
-    .panel { padding: 16px; }
-    .row {
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      padding: 22px 18px;
+      backdrop-filter: blur(10px);
+    }
+    .eyebrow {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 12px;
+    }
+    h2 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+    }
+    p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+    ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .timeline {
+      display: grid;
+      gap: 12px;
+    }
+    .step {
+      padding: 14px 14px 14px 16px;
+      border-left: 3px solid var(--gold);
+      background: rgba(255,255,255,0.48);
+      border-radius: 0 16px 16px 0;
+    }
+    .step strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+    .chips {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 12px;
-      align-items: center;
+      margin-top: 14px;
     }
-    label {
-      display: block;
-      font-size: 14px;
-      margin-bottom: 6px;
-    }
-    input, textarea, pre {
-      width: 100%;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: #fff;
-      color: #181513;
-      padding: 12px 14px;
-      font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    input { font: 14px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-    textarea, pre {
-      min-height: 320px;
-      overflow: auto;
-      white-space: pre-wrap;
-      word-break: break-word;
-      margin: 0;
-    }
-    button {
-      border: 0;
+    .chip {
+      padding: 8px 12px;
       border-radius: 999px;
-      padding: 12px 18px;
-      cursor: pointer;
-      font: inherit;
-      transition: transform .15s ease, opacity .15s ease;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.56);
+      font-size: 13px;
+      color: var(--ink);
     }
-    button:hover { transform: translateY(-1px); }
-    button:disabled { opacity: .6; transform: none; cursor: wait; }
-    .primary { background: var(--accent); color: #fff; }
-    .secondary { background: #efe4d3; color: var(--ink); }
-    .danger { background: var(--danger); color: #fff; }
-    .status {
-      min-height: 22px;
-      font-size: 14px;
+    .grid-mini {
+      display: grid;
+      gap: 12px;
     }
-    .ok { color: var(--accent); }
-    .err { color: var(--danger); }
+    @media (min-width: 700px) {
+      .grid-mini { grid-template-columns: repeat(2, 1fr); }
+    }
+    .mini {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.56);
+    }
+    .mini h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+    .link-panel {
+      display: grid;
+      gap: 12px;
+    }
+    .link-box {
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(217,199,168,0.30), rgba(255,255,255,0.70));
+      border: 1px solid var(--line);
+      overflow-wrap: anywhere;
+    }
+    .link-box small {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 11px;
+    }
+    footer {
+      margin-top: 18px;
+      padding: 22px 6px 0;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
   <main class="shell">
+    <div class="topbar">
+      <div class="brand">
+        <div class="seal">K</div>
+        <span>Keysto Delivery Notes</span>
+      </div>
+      <nav class="nav">
+        <a href="#resumo">Resumo</a>
+        <a href="#ajustes">Ajustes</a>
+        <a href="#links">Links</a>
+        <a href="./app.html">Abrir App</a>
+      </nav>
+    </div>
+
     <section class="hero">
-      <span class="badge">GitHub Pages Frontend</span>
-      <span class="badge">Keystone BTC Proof</span>
-      <span class="badge">Static UI</span>
-      <h1>Validador via Navegador</h1>
-      <p>Frontend estático preparado para GitHub Pages. Ele conversa com a API rodando na VPS. Se o endpoint mudar, atualize o campo abaixo e recarregue o exemplo.</p>
+      <div class="kicker">Documento de entrega publica</div>
+      <h1>Keysto foi ajustado e documentado.</h1>
+      <p class="lede">Esta pagina resume o que foi lido, auditado, corrigido, empacotado e publicado hoje no projeto Keystone BTC Proof. O objetivo foi sair de uma biblioteca solta e entregar algo executavel, auditado, acessivel via navegador e publicavel por link.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="./app.html">Abrir validador</a>
+        <a class="btn secondary" href="https://github.com/ajudaanapolis-dev/Keysto">Ver repositorio</a>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <strong>1</strong>
+          <span>verificador Rust consolidado</span>
+        </div>
+        <div class="stat">
+          <strong>3</strong>
+          <span>superficies de uso: CLI, web e GitHub Pages</span>
+        </div>
+        <div class="stat">
+          <strong>23</strong>
+          <span>testes locais aprovados na rodada final</span>
+        </div>
+        <div class="stat">
+          <strong>100%</strong>
+          <span>pagina principal transformada em documento</span>
+        </div>
+      </div>
     </section>
 
-    <section class="grid">
-      <article class="panel">
-        <label for="apiBase">API Base URL</label>
-        <div class="row">
-          <input id="apiBase" type="text" value="https://hood-frequently-vincent-kim.trycloudflare.com">
-          <button id="saveApi" class="secondary">Salvar Endpoint</button>
+    <section id="resumo" class="section double">
+      <article class="card">
+        <span class="eyebrow">Visao geral</span>
+        <h2>O que foi entregue</h2>
+        <p>O projeto deixou de ser apenas uma crate Rust fechada e passou a ter uma forma clara de uso. Foi finalizada a camada de verificacao, criada uma interface web, preparado um frontend estatico para GitHub Pages e organizada uma publicacao publica por link.</p>
+        <p>Tambem foi feita uma revisao de logica para fechar buracos de rede, janela temporal, altura maxima de inclusao e confianca do tip. Onde havia risco material, o codigo foi corrigido e coberto por teste.</p>
+        <div class="chips">
+          <span class="chip">Rust verifier</span>
+          <span class="chip">CLI util</span>
+          <span class="chip">Web UI</span>
+          <span class="chip">Pages frontend</span>
+          <span class="chip">CORS aberto</span>
+          <span class="chip">Service scripts</span>
         </div>
-        <div class="row">
-          <button id="loadSample" class="secondary">Carregar Exemplo</button>
-          <button id="verify" class="primary">Verificar Bundle</button>
-          <button id="clear" class="danger">Limpar Resultado</button>
-        </div>
-        <textarea id="payload" spellcheck="false" placeholder="Cole ou edite o JSON aqui"></textarea>
       </article>
-
-      <aside class="panel">
-        <div class="row">
-          <span class="badge">Resultado</span>
-          <span id="status" class="status"></span>
-        </div>
-        <pre id="result">Carregue um exemplo para começar.</pre>
+      <aside class="card">
+        <span class="eyebrow">Estado atual</span>
+        <h2>Como o projeto ficou</h2>
+        <ul>
+          <li>Biblioteca de verificacao com fluxo de avaliacao fechado.</li>
+          <li>Binario com comandos `template`, `verify` e `serve`.</li>
+          <li>Interface navegavel separada em `app.html`.</li>
+          <li>Pagina principal transformada em documento de entrega.</li>
+          <li>Publicacao automatica no GitHub Pages via GitHub Actions.</li>
+          <li>Repositorio remoto publicado em `main`.</li>
+        </ul>
       </aside>
     </section>
+
+    <section id="ajustes" class="section">
+      <article class="card">
+        <span class="eyebrow">Linha do tempo</span>
+        <h2>Ajustes realizados hoje</h2>
+        <div class="timeline">
+          <div class="step">
+            <strong>Auditoria do codigo</strong>
+            <span>Foi feita leitura completa da base Rust para entender o fluxo de `ClaimBundle`, headers, Merkle proof, Taproot, ordem e settlement.</span>
+          </div>
+          <div class="step">
+            <strong>Correcao da adjudicacao</strong>
+            <span>Foram fechados problemas em rede Bitcoin esperada, altura maxima de inclusao, validacao do tip aceito e checagens de contexto L2.</span>
+          </div>
+          <div class="step">
+            <strong>Empacotamento executavel</strong>
+            <span>Foi criado um binario consumivel, com JSON de exemplo, verificacao por arquivo ou stdin e modo servidor HTTP para uso em navegador.</span>
+          </div>
+          <div class="step">
+            <strong>Publicacao web</strong>
+            <span>Foi preparada uma camada estatica para GitHub Pages e separado o frontend em duas experiencias: documento de entrega e aplicacao interativa.</span>
+          </div>
+          <div class="step">
+            <strong>Exposicao publica</strong>
+            <span>O repositorio foi publicado no GitHub, o workflow de Pages foi habilitado e o link publico foi validado.</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <article class="card">
+        <span class="eyebrow">Entregaveis tecnicos</span>
+        <h2>Arquivos e superficies principais</h2>
+        <div class="grid-mini">
+          <div class="mini">
+            <h3>Backend Rust</h3>
+            <p>`src/main.rs` expande a crate com CLI e servidor HTTP, enquanto `src/evaluate.rs` concentra a avaliacao do bundle.</p>
+          </div>
+          <div class="mini">
+            <h3>Frontend estatico</h3>
+            <p>`docs/index.html` virou o documento publico. `docs/app.html` guarda a ferramenta interativa para testes no navegador.</p>
+          </div>
+          <div class="mini">
+            <h3>Deploy</h3>
+            <p>O workflow `pages.yml` publica automaticamente o conteudo de `docs/` no GitHub Pages.</p>
+          </div>
+          <div class="mini">
+            <h3>Operacao</h3>
+            <p>Scripts em `service/` continuam disponiveis para rodar a interface web na VPS e manter tunel/servico.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="section double" id="links">
+      <article class="card">
+        <span class="eyebrow">Links</span>
+        <h2>Onde acessar agora</h2>
+        <div class="link-panel">
+          <div class="link-box">
+            <small>Documento principal</small>
+            <a href="https://ajudaanapolis-dev.github.io/Keysto/">https://ajudaanapolis-dev.github.io/Keysto/</a>
+          </div>
+          <div class="link-box">
+            <small>Aplicacao interativa</small>
+            <a href="https://ajudaanapolis-dev.github.io/Keysto/app.html">https://ajudaanapolis-dev.github.io/Keysto/app.html</a>
+          </div>
+          <div class="link-box">
+            <small>Repositorio</small>
+            <a href="https://github.com/ajudaanapolis-dev/Keysto">https://github.com/ajudaanapolis-dev/Keysto</a>
+          </div>
+        </div>
+      </article>
+      <aside class="card">
+        <span class="eyebrow">Observacoes</span>
+        <h2>Limites ainda conhecidos</h2>
+        <ul>
+          <li>O modelo de headers continua alpha e depende de checkpoints confiaveis.</li>
+          <li>A serializacao canonica de `OrderPreimage` ainda precisa ser confrontada com a especificacao externa final.</li>
+          <li>O frontend no GitHub Pages depende da API da VPS ou de um endpoint publico compativel.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <footer>
+      Documento gerado para registrar o trabalho do dia no projeto Keysto e substituir a pagina inicial por uma entrega publica mais clara.
+    </footer>
   </main>
-
-  <script>
-    const apiBaseEl = document.getElementById('apiBase');
-    const payloadEl = document.getElementById('payload');
-    const resultEl = document.getElementById('result');
-    const statusEl = document.getElementById('status');
-    const verifyBtn = document.getElementById('verify');
-    const storageKey = 'keystone-api-base';
-
-    const savedBase = localStorage.getItem(storageKey);
-    if (savedBase) apiBaseEl.value = savedBase;
-
-    function api(path) {
-      return apiBaseEl.value.replace(/\/+$/, '') + path;
-    }
-
-    function setStatus(message, isError) {
-      statusEl.textContent = message;
-      statusEl.className = 'status ' + (isError ? 'err' : 'ok');
-    }
-
-    async function loadSample() {
-      setStatus('Carregando exemplo...', false);
-      const res = await fetch(api('/api/sample'));
-      const text = await res.text();
-      payloadEl.value = text;
-      resultEl.textContent = 'Exemplo carregado.';
-      setStatus('Exemplo pronto.', false);
-    }
-
-    async function verify() {
-      verifyBtn.disabled = true;
-      setStatus('Executando verificação...', false);
-      try {
-        const res = await fetch(api('/api/verify'), {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: payloadEl.value
-        });
-        const text = await res.text();
-        resultEl.textContent = text;
-        if (res.ok) {
-          setStatus('Bundle validado com sucesso.', false);
-        } else {
-          setStatus('Bundle rejeitado ou request inválido.', true);
-        }
-      } catch (err) {
-        resultEl.textContent = String(err);
-        setStatus('Falha de conexão com a API.', true);
-      } finally {
-        verifyBtn.disabled = false;
-      }
-    }
-
-    document.getElementById('saveApi').addEventListener('click', () => {
-      localStorage.setItem(storageKey, apiBaseEl.value.trim());
-      setStatus('Endpoint salvo no navegador.', false);
-    });
-
-    document.getElementById('loadSample').addEventListener('click', () => {
-      loadSample().catch(err => {
-        resultEl.textContent = String(err);
-        setStatus('Não foi possível carregar o exemplo.', true);
-      });
-    });
-
-    document.getElementById('verify').addEventListener('click', verify);
-    document.getElementById('clear').addEventListener('click', () => {
-      resultEl.textContent = 'Resultado limpo.';
-      setStatus('', false);
-    });
-
-    loadSample().catch(err => {
-      resultEl.textContent = String(err);
-      setStatus('Não foi possível carregar o exemplo inicial.', true);
-    });
-  </script>
 </body>
 </html>
